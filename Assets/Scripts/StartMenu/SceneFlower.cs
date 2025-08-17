@@ -6,7 +6,7 @@ using UnityEngine;
 public class SceneFlower : MonoBehaviour
 {
     // Variables
-    private string name = "";
+    private string playerName = "";
     public static SceneFlower instance = null;
     // Methods
     void Awake()
@@ -14,11 +14,11 @@ public class SceneFlower : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject); // Makes this gameObject become a DontDestroyOnLoad gameObject, so it can carry data in this between scenes
         }
         else
         {
-            Destroy(gameObject);
+            Destroy(gameObject); // Have no duplicates of this object
         }
     }
 
@@ -32,7 +32,11 @@ public class SceneFlower : MonoBehaviour
         {
             PlayerPrefs.SetInt("Highscore", newScore);
             PlayerPrefs.SetString("BestName", newName);
+            Debug.Log("New highscore: " + newScore + " by " + newName);
+            return;
         }
+        Debug.Log("Highscore and best name isn't updated.");
+
     }
 
     // Properties ( Accessor methods )
@@ -47,8 +51,8 @@ public class SceneFlower : MonoBehaviour
     }
     public string Name
     {
-        get { return name; }
-        set { name = value; }
+        get { return playerName; }
+        set { playerName = value; }
     }
     public string BestName
     {
